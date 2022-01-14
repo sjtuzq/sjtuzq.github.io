@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://haozhiqi.github.io/ISONet/ -->
+<html lang="en"><script type="text/javascript">(function(){var t=[],e=!0;window.addEventListener("onelogin.markSubmitCandidates",(function(n){t.forEach((function(t){t.setAttribute&&t.setAttribute("data-ol-has-click-handler","")})),t=[],e=!1,window.dispatchEvent(new CustomEvent("onelogin.submitCandidatesMarked"))}),{once:!0}),EventTarget.prototype.ol_originalAddEventListener=EventTarget.prototype.addEventListener,EventTarget.prototype.addEventListener=function(n,o){var r=arguments.length>2&&void 0!==arguments[2]&&arguments[2];this.ol_originalAddEventListener(n,o,r),e&&"click"===n&&t.push(this)}})("")</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title> Cycle Dynamics</title>
+    
+    <link href="./resources/cycle_dynamics/ref_files/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: Arial;
+        font-size:15px;
+        margin: 60px auto;
+        width: auto;
+        max-width: 1000px;
+      }
+
+      hr {
+        border: 0;
+        height: 1.0px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+      }
+
+      .gap-30 {
+      width:100%;
+      height:30px;
+      }
+
+      .gap-20 {
+      width:100%;
+      height:20px;
+      }
+
+      .gap-10 {
+      width:100%;
+      height:10px;
+      }
+
+      .gap-5 {
+      width:100%;
+      height:5px;
+      }
+
+    </style>
+
+  </head>
+
+  <body data-gr-c-s-loaded="true"><div class="container">
+
+    
+
+    <center><span style="font-size:36px">Learning Cross-Domain Correspondence for Control with Dynamics Cycle-Consistency</span></center>
+    <div class="gap-5"></div>
+    <!--------------------- Author Names --------------------->
+    <div class="row">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://sjtuzq.github.io/">Qiang Zhang<sup style="font-size:10px">1</sup></a>
+        </span></center>
+      </div>
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="http://tetexiao.com/">Tete Xiao<sup style="font-size:10px">2</sup></a>
+        </span></center>
+      </div>
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://people.eecs.berkeley.edu/~efros/">Alexei A. Efros<sup style="font-size:10px">2</sup></a>
+        </span></center>
+      </div>
+      
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://cs.nyu.edu/~lp91/">Lerrel Pinto<sup style="font-size:10px">3</sup></a>
+        </span></center>
+      </div>
+
+      <div class="col-md-3">
+        <center><span style="font-size:16px">
+          <a href="https://xiaolonw.github.io/">Xiaolong Wang<sup style="font-size:10px">4</sup></a>
+        </span></center>
+      </div>
+
+      <div class="col-md-1">
+      </div>
+    </div>
+
+    <!--------------------- AFFILIATIONS --------------------->
+    <div class="gap-5"></div>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          Shanghai Jiao Tong Univeristy<sup style="font-size:10px">1</sup>
+        </span></center>
+      </div>
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          UC Berkeley<sup style="font-size:10px">2</sup>
+        </span></center>
+        <div class="col-md-4">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          New York Univeristy<sup style="font-size:10px">3</sup>
+        </span></center>
+        <div class="col-md-4">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          UC San Diego<sup style="font-size:10px">4</sup>
+        </span></center>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </div>
+    
+    <!--------------------- paper and code link --------------------->
+    <div class="gap-5"></div>
+    <div class="row">
+      <div class="col-md-3">
+      </div>
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://arxiv.org/abs/2012.09811">[arXiv]</a>
+        </span></center>
+      </div>
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://openreview.net/forum?id=QIRlze3I6hX">[ICLR 2021 Oral]</a>
+        </span></center>
+      </div>
+
+      <div class="col-md-2">
+        <center><span style="font-size:16px">
+          <a href="https://github.com/sjtuzq/Cycle_Dynamics">[code]</a>
+        </span></center>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </div>
+
+    
+
+    <br>
+
+    <br>
+    <!--------------------- teaser --------------------->
+    <!-- <div class="gap-5"></div>
+    <div class="img" style="text-align:center">
+      <img src="./ref_files/teaser.png" style="margin:0.2em;max-width:95%">
+    </div> -->
+    <table align=center width=800px>
+      <center><h1></h1></center>
+      <center><table align=center width=1200px>
+        <tr>
+          <a href="./resources/cycle_dynamics/ref_files/teaser.png"><img src="./resources/cycle_dynamics/ref_files/teaser.png" width="100%"></a> &nbsp; &nbsp;            </tr>
+        </table></center>
+      </table>
+
+    <!--------------------- abstract --------------------->
+    <div class="gap-20"></div>
+    <b><span style="font-size:20px">Abstract:</span></b><br>
+    <div class="gap-5"></div>
+    <p align="justify">At the heart of many robotics problems is the challenge of learning correspondences across domains. 
+      For instance, imitation learning requires obtaining correspondence between humans and robots; sim-to-real requires correspondence between physics simulators and the real world; transfer learning requires correspondences between different robotics environments. 
+      This paper aims to learn correspondence across domains differing in representation (vision vs. internal state), physics parameters (mass and friction), and morphology (number of limbs). Importantly, correspondences are learned using unpaired and randomly collected data from the two domains. We propose dynamics cycles that align dynamic robot behavior across two domains using a cycle-consistency constraint. Once this correspondence is found, we can directly transfer the policy trained on one domain to the other, without needing any additional fine-tuning on the second domain. We perform experiments across a variety of problem domains, both in simulation and on real robot. Our framework is able to align uncalibrated monocular video of a real robot arm to dynamic state-action trajectories of a simulated arm without paired data. 
+    </p><hr>
+
+    <table align=center>
+      <!-- <tr>
+          <center><h3 style="color:dodgerblue">Overall introduction video</h3></center>
+      </tr> -->
+      <tr>
+        <td>
+          <center><h2>Short Description Video:</h2></center>
+          <table align=center width=300px>
+          <tr><td align=center width=300px>
+            <!-- <video playsinline="" autoplay="" loop="" preload="" muted="" width="100%">
+              <source src="https://www.youtube.com/embed/z4R0OBZPhXA" type="video/mp4">
+             </video> -->
+             <iframe width="900" height="500" src="https://www.youtube.com/embed/CZAsUM96oVg" 
+             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+             gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>          
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <br>
+          <br>
+          <br>
+          <center><h2>ICLR Talk Video:</h2></center>
+          <table align=center width=300px>
+          <tr><td align=center width=300px>
+            <!-- <video playsinline="" autoplay="" loop="" preload="" muted="" width="100%">
+              <source src="https://www.youtube.com/embed/z4R0OBZPhXA" type="video/mp4">
+             </video> -->
+             <iframe width="900" height="500" src="https://www.youtube.com/embed/xuETR7WqF4c" 
+             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+             gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>          
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    <br>
+    <!-- <hr> -->
+
+    <br><br><br><br>
+    <table align=center width=800px>
+      <center><h1>Real Xarm Robot Experiment Visualization</h1></center>
+      <hr>
+      <!-- <br> -->
+      <tr>
+        <left>
+          <b style="color:dodgerblue">Estimate robot arm joint pose without any labels.</b>
+          <br>
+          <br>
+          <!-- <b>(a)</b> Real image input;  
+          <b>(b)</b> Our model prediciton;  
+          <b>(c)</b> Cycle-GAN model prediction. -->
+        </left>
+    </tr>
+      <center><table align=center width=1200px>
+        <tr>
+          <a href="./resources/cycle_dynamics/gifs/xarm_updown.gif"><img src="./resources/cycle_dynamics/gifs/xarm_updown.gif" width="100%"></a>
+            <a href="./resources/cycle_dynamics/gifs/xarm_leftright.gif"><img src="./resources/cycle_dynamics/gifs/xarm_leftright.gif" width="100%"></a> 
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            <b>(a)</b> Real image input;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <b>(b)</b> Our model prediciton;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- &nbsp;&nbsp;&nbsp;  -->
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -->
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <b>(c)</b> Cycle-GAN model prediction.
+          </tr>
+          </table></center>
+        </table>
+
+
+        <br><br><br>
+        <table align=center width=800px>
+        <center><h1>Cross morphology Policy Transfer</h1></center>
+        <hr>
+        <tr>
+          <left><b style="color:dodgerblue">Cross-morphology experiment visualization.</b>
+            <!-- <b>(a)</b> Train a policy on the two-leg cheetah and test it on the three-leg cheetah. 
+            <b>(b)</b> Train a  policy on three-limb swimmer and test it on a four-limb swimmer.   -->
+            <b>Please notice that</b> there is no any new reward for fine-tuning during test time.</left>
+      </tr>
+      <br>
+      <br>
+        <center><table align=center width=1200px>
+          <tr>
+            <a href="./resources/cycle_dynamics/gifs/cheetah_2.gif"><img src="./resources/cycle_dynamics/gifs/cheetah_2.gif" width="23%"></a> 
+            <a href="./resources/cycle_dynamics/gifs/cheetah_3.gif"><img src="./resources/cycle_dynamics/gifs/cheetah_3.gif" width="23%"></a> &nbsp; &nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="./resources/cycle_dynamics/gifs/swimmer_3.gif"><img src="./resources/cycle_dynamics/gifs/swimmer_3.gif" width="23%"></a> 
+            <a href="./resources/cycle_dynamics/gifs/swimmer_4.gif"><img src="./resources/cycle_dynamics/gifs/swimmer_4.gif" width="23%"></a> 
+          </tr>
+          <br>
+          <br>
+          <b>(a)</b> Train a policy on two-leg cheetah and test on three-leg cheetah.
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -->
+          <b>(b)</b> Train a policy on three-limb swimmer and test on four-limb.
+          </table></center>
+        </table>
+
+        <br><br><br><br>
+        <table align=center width=800px>
+          <center><h1>HalfCheetah Training Process Visualization</h1></center>
+          <hr>
+          <tr>
+            <left><b style="color:dodgerblue">Estimated state visualization during training process:</b>
+              <b>(a)</b> One random sampled image from the dataset.
+              <b>(b)</b> Estimate the state and rerender the image for different training iterations.
+              <b>(c)</b> L1 error (between model  output state and the groundtruth) changing curve during the training process:
+              the horizontal axis represents iteration number and the vertical axis represents L1 error. 
+              <b>Please notice that</b> there is no any paired data for training.
+            </left>
+        </tr>
+        <br>
+        <br>
+          <center><table align=center width=1200px>
+            <tr>
+              <a href="./resources/cycle_dynamics/gifs/training.gif"><img src="./resources/cycle_dynamics/gifs/training.gif" width="103%"></a> </tr>
+              &nbsp; &nbsp;&nbsp; &nbsp;   
+              <br>
+              <!-- <br>           -->
+              &nbsp;&nbsp; &nbsp; 
+              <b>(a)</b> One random sampled image.
+              <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   -->
+              <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -->
+              <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -->
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>(b)</b> Estimate the state and rerender the image.
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <b>(c)</b> (L1 error)---(training iteration) curve.
+            </table></center>
+          </table>
+        
+        
+        <br><br><br><br>
+        <table align=center width=800px>
+          <center><h1>HalfCheetah State Estimation Comparison</h1></center>
+          <hr>
+          <tr>
+            <left><b style="color:dodgerblue">Self-supervised state estimation visualization:</b>
+              estimate the state from image observation and rerender the new image. 
+              <!-- <b>(a)</b> Our (Cycle-Dynamics) experiment results.   -->
+              <!-- <b>(b)</b> Cycle-GAN baseline results. -->
+            </left>
+        </tr>
+        <br>
+        <br>
+          <center><table align=center width=1200px>
+            <tr>
+              <a href="./resources/cycle_dynamics/gifs/after.gif"><img src="./resources/cycle_dynamics/gifs/after.gif" width="46%"></a> &nbsp; &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="./resources/cycle_dynamics/gifs/before.gif"><img src="./resources/cycle_dynamics/gifs/before.gif" width="46%"></a>
+              <br>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>(a)</b> Our (Cycle-Dynamics) experiment results.
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              <b>(b)</b> Cycle-GAN baseline results.
+            </table></center>
+          <tr>
+          </tr>
+
+          </table>
+
+
+
+
+    <!-- <table align=center>
+      <div style="width:800px; margin:0 auto; text-align=center">
+        Transfer the pose from xarm robot to franka panda robot arm. Left part: real camera video. 
+        Middle part: simulated video from nearly the same viewpoint. Right part: simulated video with rotated viewpoint. <br/><br/>
+      <tr>
+        <td>
+          <table align=center width=300px>
+          <tr><td align=center width=300px>
+            <iframe width="671" height="378" src="https://www.youtube.com/embed/qlDYuI9gTqM" 
+            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>            
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br> -->
+
+
+    <br><br><br><hr>
+    <b><span style="font-size:20px">Paper:</span></b><br>
+    <div class="img" style="text-align:center">
+      <a href="https://arxiv.org/abs/2012.09811">
+        <img src="./resources/cycle_dynamics/ref_files/paper.PNG" style="margin:1.2em;max-width:100%">
+      </a>
+    </div>
+
+    <hr>
+
+    <b><span style="font-size:20px">Bibtex:</span></b><br>
+    <div class="gap-10"></div>
+    <pre>   
+      @inproceedings{
+          zhang2021learning,
+          title={Learning Cross-Domain Correspondence for Control with Dynamics Cycle-Consistency},
+          author={Qiang Zhang and Tete Xiao and Alexei A Efros and Lerrel Pinto and Xiaolong Wang},
+          booktitle={International Conference on Learning Representations},
+          year={2021},
+          url={https://openreview.net/forum?id=QIRlze3I6hX}
+      }
+    </pre>
+    <hr>
+
+    <b><span style="font-size:20px">Acknowledgements:</span></b><br>
+    <div class="gap-10"></div>
+    We like to thank Jeannette Bohg for helpful discussions on this project.
+    This work was supported, in part, by grants from DARPA, NSF 1730158 CI-New: 
+    Cognitive Hardware and Software Ecosystem Community Infrastructure (CHASE-CI), 
+    NSF ACI-1541349 CC*DNI Pacific Research Platform, research grants from Qualcomm, 
+    Berkeley DeepDrive, and SAP, and a gift from TuSimple.
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./resources/cycle_dynamics/ref_files/jquery.min.js.下载"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./resources/cycle_dynamics/ref_files/bootstrap.min.js.下载"></script>
+
+  
+  </div>
+
+
+</body></html>
